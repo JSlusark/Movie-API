@@ -84,7 +84,6 @@ app.get(
 app.post(
   "/users",
 
-  // passport.authenticate("jwt", { session: false }),
   [
     check("username", "Username is required").isLength({ min: 5 }),
     check(
@@ -102,7 +101,7 @@ app.post(
       return res.status(422).json({ errors: errors.array() });
     }
 
-    let hashedPassword = Users.hashPassword(req.body.Password);
+    let hashedPassword = Users.hashPassword(req.body.password);
     Users.findOne({ username: req.body.username }) // Search to see if a user with the requested username already exists
       .then((user) => {
         if (user) {
@@ -132,17 +131,31 @@ app.post(
   }
 );
 
-//UPDATE: updates a user
+//UPDATE: updates user details (if you update just one detail it won't work, this might be changed later)
 app.put(
   "/users/:username",
+  [
+    check("username", "Username is required").isLength({ min: 5 }),
+    check(
+      "username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("password", "Password is required").not().isEmpty(),
+    check("email", "Email does not appear to be valid").isEmail(),
+  ],
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.password);
     Users.findOneAndUpdate(
       { username: req.params.username },
       {
         $set: {
           username: req.body.username,
-          password: req.body.password,
+          password: hashedPassword,
           email: req.body.email,
           birthday: req.body.birthday,
         },

@@ -15,10 +15,13 @@ passport.use(
     },
     (username, password, callback) => {
       console.log(username + "  " + password);
-      User.findOne({ username, password })
+      User.findOne({ username })
         .then((user) => {
           //validate username
           if (!user) {
+            console.log(
+              `username:${username} ; user:${user} ; password:${password}`
+            );
             console.log("incorrect username");
             return callback(null, false, {
               message: "Incorrect username, please check and write again",
