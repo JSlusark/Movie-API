@@ -10,8 +10,14 @@ const cors = require("cors");
 const { check, validationResult } = require("express-validator");
 const Models = require("./models.js");
 
-// DB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/myflix", {
+// DB Connection local
+// mongoose.connect("mongodb://127.0.0.1:27017/myflix", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+// DB Connection Atlas
+mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
