@@ -249,7 +249,7 @@ app.delete(
 //READ: list of movies
 app.get(
   "/movies",
-  // passport.authenticate("jwt", { session: false }) removing this based on class 3.4 React lifecycle methods
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.find()
       .then((movies) => {
