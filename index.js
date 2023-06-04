@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 let allowedOrigins = [
 	"http://localhost:8080",
-	"http://mymovielistj.netlify.app",
+	"https://mymovielistj.netlify.app",
 ];
 
 //app.use(cors()); this will allow any origin so changing it with below
