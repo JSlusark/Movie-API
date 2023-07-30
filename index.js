@@ -236,9 +236,13 @@ app.delete(
 		Users.findOneAndRemove({ username: req.params.username })
 			.then((user) => {
 				if (!user) {
-					res.status(400).send(req.params.username + " was not found");
+					res
+						.status(400)
+						.send({ error: req.params.username + " was not found" });
 				} else {
-					res.status(200).send(req.params.username + " was deleted.");
+					res
+						.status(200)
+						.send({ message: req.params.username + " was deleted." });
 				}
 			})
 			.catch((err) => {
