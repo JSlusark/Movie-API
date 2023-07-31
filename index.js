@@ -1,11 +1,27 @@
 //Importing node modules
 const express = require(`express`);
+/**
+ * Morgan is a HTTP request logger middleware for Node.js.
+ * https://www.npmjs.com/package/morgan
+ */
 const morgan = require(`morgan`);
+/**
+ * Mongoose is a MongoDB object modeling tool designed to work in an asynchronous environment.
+ * https://www.npmjs.com/package/mongoose
+ * https://mongoosejs.com/
+ * https://mongoosejs.com/docs/guide.html
+ * https://mongoosejs.com/docs/api.html
+ */
 const mongoose = require("mongoose");
 const bodyParser = require(`body-parser`);
 const uuid = require(`uuid`);
 const path = require(`path`);
 const app = express();
+// CORS middleware
+/**
+ * CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+ * https://www.npmjs.com/package/cors
+ */
 const cors = require("cors");
 const { check, validationResult } = require("express-validator");
 const Models = require("./models.js");
@@ -29,6 +45,7 @@ const Users = Models.User;
 app.use(morgan(`common`));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 let allowedOrigins = [
 	"http://localhost:8080",
 	"https://mymovielistj.netlify.app",
@@ -59,6 +76,14 @@ const passport = require("passport");
 require("./passport.js");
 
 //_______________________ Methods for User list _______________________
+
+/**
+ * Returns a list of all users
+ * @method GET
+ * @param {string} endpoint - /users
+ * @param {function} callback - function(req, res)
+ * @returns {object} - JSON object containing all users
+ */
 // READ:list of users
 app.get(
 	"/users",
@@ -254,7 +279,13 @@ app.delete(
 );
 
 //_______________________ Methods for movies collection _______________________
-
+/**
+ * Returns a list of all movies
+ * @method GET
+ * @param {string} endpoint - /movies
+ * @param {function} callback - function(req, res)
+ * @returns {object} - JSON object containing all movies
+ */
 //READ: list of movies
 app.get(
 	"/movies",
