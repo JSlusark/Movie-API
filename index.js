@@ -50,7 +50,7 @@ let allowedOrigins = [
 	"http://localhost:8080",
 	"https://mymovielistj.netlify.app",
 	"http://localhost:4200",
-	"https://birdieber.github.io",
+	"https://jslusark.github.io",
 ];
 
 //app.use(cors()); this will allow any origin so changing it with below
