@@ -32,6 +32,8 @@ const Models = require("./models.js");
 //   useUnifiedTopology: true,
 // });
 
+console.log("CONNECTION_URI:", process.env.CONNECTION_URI);
+
 // DB Connection Atlas
 mongoose.connect(process.env.CONNECTION_URI, {
 	useNewUrlParser: true,
